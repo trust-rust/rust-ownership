@@ -39,7 +39,7 @@ As for IDEs, I prefer to use Visual Studio Code.  For a better experience I sugg
 
 One of the distinguishing features of Rust is memory safety at performance levels near the C language.
 ## Memory Safety
-For the uninitiated, memory safety refers to a class of bugs that your program is protected from while at runtime.  These bugs include some well known issues such as buffer overflows, use after free, and dangling pointers.  Normally, memory safety is achieved by means of garbage collection or GC.  A full discussion about GC is out of scope here, but GC can cause other issues (raise your hand if you ever hooked up to a memory staved JVM to watch the GC thrash).  Rust on the other hand achieves memory safety through the concept of ownership where memory safety checks happen at compile time.  Completing the checks at compile time means there is no runtime impact on performance due to memory safety checks in.
+For the uninitiated, memory safety refers to a class of bugs that your program is protected from at runtime.  These bugs include some well known issues such as buffer overflows, use after free, and dangling pointers.  Normally, memory safety is achieved by means of garbage collection or GC.  A full discussion about GC is out of scope here, but GC can cause other issues (raise your hand if you ever hooked up to a memory starved JVM to watch the GC thrash).  Rust on the other hand achieves memory safety through the concept of ownership where memory safety checks happen at compile time.  Completing the checks at compile time means there is no runtime impact on performance.
 
 ## Ownership
 So what is ownership?  First the ownership rules:
@@ -48,7 +48,7 @@ So what is ownership?  First the ownership rules:
 2. There can only be one owner at a time.
 3. When the owner goes out of scope, the value will be dropped.
 
-That's it.  Now, we will dive into some ownership examples to illustrate in a more concerete manner what ownership is.
+That's it.  Now, we will dive into some examples to illustrate in a more concerete manner what ownership is.
 
 # The Code
 These examples loosely follow the examples documented in the [Rust book](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html).  I hightly recommend taking some time to peruse the entire book, it's very good.  I've added some additional examples where I've run into ownership conundrums in the past.
@@ -57,21 +57,44 @@ The code for these examples is hosted at https://github.com/trust-rust/rust-owne
 
 For each example, there will be a corresponding branch, e.g. Example 1 will have code in the `ex01` branch.
 
-I suggest switching to the appropriate branch for each example so you can tinker with actual code.
+I suggest switching to the appropriate branch for each example so you can tinker with actual code, `git checkout -t origin/ex01`
 
 # Example 1 - Variable Scope
+As in many other languages, scope is the range within which a variable is valid.  Take a minute to study the example below.
+
+## Variable Scope in Action
+We will be using `cargo` to interact with most of the examples.  `cargo` is the Rust package manager and build tool.
+
+1. Execute `cargo run ex01` at the command line in the base directory of the project.  What did you expect to see?
+1. Uncomment line 20 and re-run `cargo run ex01`.  What do you see this time?
+1. Comment line 20, uncomment line 27, and re-run `cargo run ex01`.  What changed from the previous results?
+
 The full code for this example is in the `ex01.rs` file in the `src/` directory.
 
 ```rust
-{
-    let s = "hello";
-}
+File: ex01.rs
+04:     {
+05:         // 'a_str' is not valid here, it’s not yet declared
+06:         //
+07:         // Uncomment line 20 to see the following error:
+08:         //
+09:         // error[E0425]: cannot find value `a_str` in this scope
+10:         //   --> src/ex01.rs:20:38
+11:         //    |
+12:         // 20 |         info!(stdout, "a_str is {}", a_str);
+13:         //    |                                      ^^^^^ not found in this scope
+14:         //
+15:         // error: aborting due to previous error
+16:         //
+17:         // For more information about this error, try `rustc --explain E0425`.
+18:         // error: could not compile `rust_own`
+19:         //
+20:         // info!(stdout, "a_str is {}", a_str);
+21:
+22:         let a_str = "trust-rust";                    // 'a_str' is valid from this point forward
+23:         info!(stdout, "a_str is {}", a_str);         // You can use 'a_str' while it is in scope
+24:     }                                                // This curly brace indicates that our scope is now over, and 'a_str' is no longer valid
+25:
+26:     // Uncomment the following line to see a similar scope error to the above
+27:     // info!(stdout, "a_str is {}", a_str);
 ```
-
-# Example 2
-# Taking Ownership / Move
-```rust
-{
-    let x = 5;
-    let y = x;
-}

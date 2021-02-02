@@ -29,7 +29,15 @@ fn random_color() -> Color {
 crate fn header() {
     let color = random_color();
 
-    println!("{}", "rust-own".color(color));
+    println!("{}", "######## ########  ##     ##  ######  ########    ########  ##     ##  ######  ######## ".color(color));
+    println!("{}", "   ##    ##     ## ##     ## ##    ##    ##       ##     ## ##     ## ##    ##    ##    ".color(color));
+    println!("{}", "   ##    ##     ## ##     ## ##          ##       ##     ## ##     ## ##          ##    ".color(color));
+    println!("{}", "   ##    ########  ##     ##  ######     ##       ########  ##     ##  ######     ##    ".color(color));
+    println!("{}", "   ##    ##   ##   ##     ##       ##    ##       ##   ##   ##     ##       ##    ##    ".color(color));
+    println!("{}", "   ##    ##    ##  ##     ## ##    ##    ##       ##    ##  ##     ## ##    ##    ##    ".color(color));
+    println!("{}", "   ##    ##     ##  #######   ######     ##       ##     ##  #######   ######     ##    ".color(color));
+
+
     println!();
     println!("4a61736f6e204f7a696173");
     println!();

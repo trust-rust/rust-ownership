@@ -368,21 +368,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust_own"
-version = "0.1.0"
-dependencies = [
- "clap",
- "colored",
- "dirs2",
- "getset",
- "rand",
- "slog",
- "slog-async",
- "slog-term",
- "vergen",
-]
-
-[[package]]
 name = "slog"
 version = "2.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -473,6 +458,21 @@ dependencies = [
  "libc",
  "wasi 0.10.0+wasi-snapshot-preview1",
  "winapi",
+]
+
+[[package]]
+name = "tr"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "colored",
+ "dirs2",
+ "getset",
+ "rand",
+ "slog",
+ "slog-async",
+ "slog-term",
+ "vergen",
 ]
 
 [[package]]
