@@ -8,7 +8,7 @@
 
 //! `rust_own` cli
 
-use clap::{App, Arg};
+use clap::{App, Arg, SubCommand};
 
 crate fn app<'a, 'b>() -> App<'a, 'b> {
     App::new("rust_own")
@@ -27,4 +27,9 @@ crate fn app<'a, 'b>() -> App<'a, 'b> {
                 .multiple(true)
                 .help("Sets the level of quiet (multiple turn down the noise)"),
         )
+        .subcommand(ex01())
+}
+
+fn ex01<'a, 'b>() -> App<'a, 'b> {
+    SubCommand::with_name("ex01")
 }

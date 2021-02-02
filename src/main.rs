@@ -115,6 +115,7 @@
 )]
 
 mod error;
+mod ex01;
 mod run;
 
 use crate::error::ErrSource;

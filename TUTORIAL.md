@@ -1,32 +1,100 @@
 # Introduction
 
-A brief introduction about memory safety without GC (a distinguishing feature of Rust)
+Rust is my favorite language, hands down.  This wasn't always the case, even after I had started using the language. But now it is.  This is the first post in a series of 3 that goes over some of the features of Rust that have landed it squarely atop the language pile for me.
 
-# Install
+First however, I'd like to take a bit of time explaning the history of my journey to Rust.
 
-How to install rust.  How to install visual studio code.
+I was really introduced to programming in college.  C was the language and it was painful for me.  Next was assembly, which somehow was worse.   Finally, my senior year I took a class on C++.  However, there was this new language on the block called Java and they had decided to teach us both at the same time.   Java was easy for me to understand and use.   When I graduated and got my first job, it was Java.   I loved Java for a long time.  As I gained more experience, I began to see some of the warts.  They weren't terrible, but they were certainly there (NPEs anyone?).  About 13 years into my career using Java, a co-worker introduced me to Clojure.   My programming world changed again.  What were these wonderous concepts in functional programming?  I started learning as much as I could about the concepts.   This included attendeing a local functional programming group.  I still attend this group and still learn about new tools to use in my programming career.  It was also the place that I was introduced to Rust.   After hearing about Rust at this meetup I decided to give it a try.  If I recall correctly, the Rust team had just released version 0.6.   I was hooked almost immediately.
 
-# Ownership in Rust
+The journey to my favorite language was filled with potholes.   Rust can be a bear to learn.  If you do any digging you'll eventually come across stories about people fighting the borrow checker and losing.  My only advice is this:  Give the language a try.  If you get stuck, set it down for a few weeks.  Come back fresh and give the language another go.  I had to re-frame how I thought about problems when programming with Rust, but in the end I think this makes me a better programmer and I now rank Rust as my favorite.
 
-A brief description about ownership.
+So, with that behind us, what is it about Rust that I love.
+
+* The memory safety
+* The documentation
+* The dev tools
+* Async/Await
+
+In this post, I will be going over the first bullet.   The others I will cover in the follow up posts.
+# Installation
+
+As this is the first post in a series I will briefly go over getting Rust installed.
+
+1. Use your browser to navigate to [rustup.rs](https://rustup.rs/)
+2. Copy the curl script presented to you and run it at the command line.
+3. You will be prompted to select some options.  For our purposes, you can use the default.
+4. Make note of the final bit of output.  You should ensure your path is set correctly per the instructions.
+5. Run `rustc -V` and `cargo -V` from the command line.  If everything has been setup correctly you will see output like below (the versions may be different):
+````
+    ab@domino ~ λ rustc -V
+    rustc 1.49.0 (e1884a8e3 2020-12-29)
+    ab@domino ~ λ cargo -V
+    cargo 1.49.0 (d00d64df9 2020-12-05)
+````
+
+If you prefer not to run a script from the web, there are other installation options [here](https://rust-lang.github.io/rustup/installation/other.html)
+
+As for IDEs, I prefer to use Visual Studio Code.  For a better experience I suggest installing the `rust-analyzer` extension.  This extension enables fun IDE features like error highlighting, auto-complete, etc.
+# Memory Safety and Ownership
+
+One of the distinguishing features of Rust is memory safety at performance levels near the C language.
+## Memory Safety
+For the uninitiated, memory safety refers to a class of bugs that your program is protected from at runtime.  These bugs include some well known issues such as buffer overflows, use after free, and dangling pointers.  Normally, memory safety is achieved by means of garbage collection or GC.  A full discussion about GC is out of scope here, but GC can cause other issues (raise your hand if you ever hooked up to a memory starved JVM to watch the GC thrash).  Rust on the other hand achieves memory safety through the concept of ownership where memory safety checks happen at compile time.  Completing the checks at compile time means there is no runtime impact on performance.
+
+## Ownership
+So what is ownership?  First the ownership rules:
 
 1. Each value in Rust has a variable that's called its owner.
 2. There can only be one owner at a time.
 3. When the owner goes out of scope, the value will be dropped.
 
+That's it.  Now, we will dive into some examples to illustrate in a more concerete manner what ownership is.
 
-# Example 1
-## Variable Scope
+# The Code
+These examples loosely follow the examples documented in the [Rust book](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html).  I hightly recommend taking some time to peruse the entire book, it's very good.  I've added some additional examples where I've run into ownership conundrums in the past.
+
+The code for these examples is hosted at https://github.com/trust-rust/rust-ownership.git.
+
+For each example, there will be a corresponding branch, e.g. Example 1 will have code in the `ex01` branch.
+
+I suggest switching to the appropriate branch for each example so you can tinker with actual code, `git checkout -t origin/ex01`
+
+# Example 1 - Variable Scope
+As in many other languages, scope is the range within which a variable is valid.  Take a minute to study the example below.
+
+## Variable Scope in Action
+We will be using `cargo` to interact with most of the examples.  `cargo` is the Rust package manager and build tool.
+
+1. Execute `cargo run ex01` at the command line in the base directory of the project.  What did you expect to see?
+1. Uncomment line 20 and re-run `cargo run ex01`.  What do you see this time?
+1. Comment line 20, uncomment line 27, and re-run `cargo run ex01`.  What changed from the previous results?
+
+The full code for this example is in the `ex01.rs` file in the `src/` directory.
+
 ```rust
-{
-    let s = "hello";
-}
+File: ex01.rs
+04:     {
+05:         // 'a_str' is not valid here, it’s not yet declared
+06:         //
+07:         // Uncomment line 20 to see the following error:
+08:         //
+09:         // error[E0425]: cannot find value `a_str` in this scope
+10:         //   --> src/ex01.rs:20:38
+11:         //    |
+12:         // 20 |         info!(stdout, "a_str is {}", a_str);
+13:         //    |                                      ^^^^^ not found in this scope
+14:         //
+15:         // error: aborting due to previous error
+16:         //
+17:         // For more information about this error, try `rustc --explain E0425`.
+18:         // error: could not compile `rust_own`
+19:         //
+20:         // info!(stdout, "a_str is {}", a_str);
+21:
+22:         let a_str = "trust-rust";                    // 'a_str' is valid from this point forward
+23:         info!(stdout, "a_str is {}", a_str);         // You can use 'a_str' while it is in scope
+24:     }                                                // This curly brace indicates that our scope is now over, and 'a_str' is no longer valid
+25:
+26:     // Uncomment the following line to see a similar scope error to the above
+27:     // info!(stdout, "a_str is {}", a_str);
 ```
-
-# Example 2
-# Taking Ownership / Move
-```rust
-{
-    let x = 5;
-    let y = x;
-}

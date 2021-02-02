@@ -12,7 +12,10 @@ mod cli;
 mod header;
 mod log;
 
-use crate::error::{ErrCode, Error, Result};
+use crate::{
+    error::{ErrCode, Error, Result},
+    ex01,
+};
 use slog::info;
 use std::fs::DirBuilder;
 
@@ -34,7 +37,11 @@ crate fn run() -> Result<()> {
     let stdout = log::initialize(&matches)?;
     info!(stdout, "rust-own Started!");
 
-    Err("protocol:not implemented".into())
+    match matches.subcommand() {
+        ("ex01", _sub_m) => ex01::variable_scope(&stdout),
+        _ => {}
+    }
+    Ok(())
 }
 
 fn no_config_dir() -> Error {
