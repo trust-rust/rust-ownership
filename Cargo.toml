@@ -1,0 +1,26 @@
+[package]
+authors = ["Jason Ozias <jason.ozias@gmail.com>"]
+description = "Generated with cargo-generate template 'rustyhorde-bin-template'"
+documentation = "http://docs.rs/rust-own"
+edition = "2018"
+homepage = "http://docs.rs/rust-own"
+keywords = [""]
+license = "MIT/Apache-2.0"
+name = "rust_own"
+readme = "README.md"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = "2"
+colored = "2"
+dirs2 = "3"
+getset = "0"
+rand = "0"
+slog = { version = "2", features = ["max_level_trace", "release_max_level_debug"] }
+slog-async = "2"
+slog-term = "2"
+
+[build-dependencies]
+vergen = "3"
