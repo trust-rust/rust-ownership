@@ -19,9 +19,9 @@ crate fn variable_scope(stdout: &Logger) {
         //
         // info!(stdout, "a_str is {}", a_str);
 
-        let a_str = "trust-rust";               // 'a_str' is valid from this point forward
-        info!(stdout, "a_str is {}", a_str);         // You can use 'a_str' while it is in scope
-    }                                                // This curly brace indicates that our scope is now over, and 'a_str' is no longer valid
+        let a_str = "trust-rust"; // 'a_str' is valid from this point forward
+        info!(stdout, "a_str is {}", a_str); // You can use 'a_str' while it is in scope
+    } // This curly brace indicates that our scope is now over, and 'a_str' is no longer valid
 
     // Uncomment line 27 to see a similar scope error to the above
     // info!(stdout, "a_str is {}", a_str);
