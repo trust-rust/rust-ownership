@@ -27,9 +27,10 @@ crate fn app<'a, 'b>() -> App<'a, 'b> {
                 .multiple(true)
                 .help("Sets the level of quiet (multiple turn down the noise)"),
         )
-        .subcommand(ex01())
+        .subcommand(example("ex01"))
+        .subcommand(example("ex02"))
 }
 
-fn ex01<'a, 'b>() -> App<'a, 'b> {
-    SubCommand::with_name("ex01")
+fn example<'a, 'b>(name: &str) -> App<'a, 'b> {
+    SubCommand::with_name(name)
 }

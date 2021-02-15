@@ -11,7 +11,6 @@
 use crate::error::Result;
 use clap::ArgMatches;
 use slog::{o, Drain, Level, Logger};
-use slog_async::Async;
 use slog_term::{FullFormat, TermDecorator};
 
 crate fn initialize(matches: &ArgMatches<'_>) -> Result<Logger> {
@@ -20,8 +19,9 @@ crate fn initialize(matches: &ArgMatches<'_>) -> Result<Logger> {
     let effective_level = get_effective_level(quiet, verbose);
     let term_decorator = TermDecorator::new().build();
     let drain = FullFormat::new(term_decorator).build().fuse();
-    let drain = Async::new(drain).build().fuse();
+    // let drain = Async::new(drain).build().fuse();
     let drain = drain.filter_level(effective_level).fuse();
+    let drain = std::sync::Mutex::new(drain).fuse();
     Ok(Logger::root(drain, o!()))
 }
 

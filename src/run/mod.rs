@@ -12,10 +12,8 @@ mod cli;
 mod header;
 mod log;
 
-use crate::{
-    error::{ErrCode, Error, Result},
-    ex01,
-};
+use crate::{error::{ErrCode, Error, Result}, ex01::ex01_scope, ex02::ex02_move};
+use colored::Colorize;
 use slog::info;
 use std::fs::DirBuilder;
 
@@ -35,10 +33,17 @@ crate fn run() -> Result<()> {
 
     // Setup logging
     let stdout = log::initialize(&matches)?;
-    info!(stdout, "rust-own Started!");
+    info!(stdout, "tr Started!");
 
     match matches.subcommand() {
-        ("ex01", _sub_m) => ex01::variable_scope(&stdout),
+        ("ex01", _sub_m) => {
+            info!(stdout, "{}", "Example 1 - Variable Scope".blue());
+            ex01_scope();
+        },
+        ("ex02", _sub_m) => {
+            info!(stdout, "{}", "Example 2 - Move".blue());
+            ex02_move();
+        }
         _ => {}
     }
     Ok(())
