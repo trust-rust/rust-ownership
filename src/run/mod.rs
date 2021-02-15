@@ -12,7 +12,11 @@ mod cli;
 mod header;
 mod log;
 
-use crate::{error::{ErrCode, Error, Result}, ex01::ex01_scope, ex02::ex02_move};
+use crate::{
+    error::{ErrCode, Error, Result},
+    ex01::ex01_scope,
+    ex02::ex02_move,
+};
 use colored::Colorize;
 use slog::info;
 use std::fs::DirBuilder;
@@ -39,7 +43,7 @@ crate fn run() -> Result<()> {
         ("ex01", _sub_m) => {
             info!(stdout, "{}", "Example 1 - Variable Scope".blue());
             ex01_scope();
-        },
+        }
         ("ex02", _sub_m) => {
             info!(stdout, "{}", "Example 2 - Move".blue());
             ex02_move();

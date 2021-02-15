@@ -119,9 +119,9 @@ mod ex01;
 mod ex02;
 mod run;
 
-use slog_async as _;
 use crate::error::ErrSource;
 use clap::ErrorKind;
+use slog_async as _;
 use std::process;
 
 fn main() {

@@ -1,7 +1,8 @@
 crate fn ex02_move() {
-    let x = String::from("trust-rust");  // x establishes ownership of the string here
-    let y = x;                           // ownership of the string is moved to y.  x is now invalid and out of scope.
-    // Uncomment line 28 to see the following error
+    let x = String::from("trust-rust"); // x establishes ownership of the string here
+    let y = x; // ownership of the string is moved to y.  x is now invalid and out of scope.
+
+    // Uncomment line 21 to see the following error
     //
     // error[E0382]: borrow of moved value: `x`
     //   --> src/ex02.rs:21:25
@@ -18,6 +19,7 @@ crate fn ex02_move() {
     //
     // For more information about this error, try `rustc --explain E0382`.
     // error: could not compile `tr`
-    println!("x is {}", x);                  // x is invalid and cannot be used.
-    println!("y is {}", y);                  // y owns the string, therefore it can be used.
+    // println!("x is {}", x); // x is invalid and cannot be used.
+
+    println!("y is {}", y); // y owns the string, therefore it can be used.
 }

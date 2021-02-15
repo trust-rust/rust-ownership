@@ -191,5 +191,5 @@ let y = x;
 ```
 At this point `x` no longer owns anything, so is invalid.  Therefore, we can no longer refer to `x` after this point in the code.
 
-### **Move In Action**
+### **Functions and Move**
 ## C. Borrow

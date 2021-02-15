@@ -17,9 +17,9 @@ crate fn ex01_scope() {
         //
         // println!("a_str is {}", a_str);
 
-        let a_str = "trust-rust";               // 'a_str' is valid from this point forward
-        println!("a_str is {}", a_str);         // You can use 'a_str' while it is in scope
-    }                                                // This curly brace indicates that our scope is now over, and 'a_str' is no longer valid
+        let a_str = "trust-rust"; // 'a_str' is valid from this point forward
+        println!("a_str is {}", a_str); // You can use 'a_str' while it is in scope
+    } // This curly brace indicates that our scope is now over, and 'a_str' is no longer valid
 
     // Uncomment line 25 to see a similar scope error to the above
     // println!("a_str is {}", a_str);
