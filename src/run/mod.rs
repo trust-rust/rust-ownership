@@ -16,6 +16,12 @@ use crate::{
     error::{ErrCode, Error, Result},
     ex01::ex01_scope,
     ex02::ex02_move,
+    ex03::ex03_move_fn,
+    ex04::ex04_fn_return,
+    ex05::ex05_move_only,
+    ex06::ex06_borrow,
+    ex07::ex07_modify,
+    ex08::ex08_mutable_reference,
 };
 use colored::Colorize;
 use slog::info;
@@ -47,6 +53,38 @@ crate fn run() -> Result<()> {
         ("ex02", _sub_m) => {
             info!(stdout, "{}", "Example 2 - Move".blue());
             ex02_move();
+        }
+        ("ex03", _sub_m) => {
+            info!(
+                stdout,
+                "{}",
+                "Example 3 - Functions Arguments are Moved".blue()
+            );
+            ex03_move_fn();
+        }
+        ("ex04", _sub_m) => {
+            info!(
+                stdout,
+                "{}",
+                "Example 4 - Function Return Values are Moved".blue()
+            );
+            ex04_fn_return();
+        }
+        ("ex05", _sub_m) => {
+            info!(stdout, "{}", "Example 5 - If you had Move only".blue());
+            ex05_move_only();
+        }
+        ("ex06", _sub_m) => {
+            info!(stdout, "{}", "Example 6 - Borrow".blue());
+            ex06_borrow();
+        }
+        ("ex07", _sub_m) => {
+            info!(stdout, "{}", "Example 7 - Modify".blue());
+            ex07_modify();
+        }
+        ("ex08", _sub_m) => {
+            info!(stdout, "{}", "Example 8 - Mutable References".blue());
+            ex08_mutable_reference();
         }
         _ => {}
     }

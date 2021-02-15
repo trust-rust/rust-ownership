@@ -29,6 +29,12 @@ crate fn app<'a, 'b>() -> App<'a, 'b> {
         )
         .subcommand(example("ex01"))
         .subcommand(example("ex02"))
+        .subcommand(example("ex03"))
+        .subcommand(example("ex04"))
+        .subcommand(example("ex05"))
+        .subcommand(example("ex06"))
+        .subcommand(example("ex07"))
+        .subcommand(example("ex08"))
 }
 
 fn example<'a, 'b>(name: &str) -> App<'a, 'b> {
