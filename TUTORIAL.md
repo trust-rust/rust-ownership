@@ -2,11 +2,11 @@
 
 Rust is my favorite language, hands down.  This wasn't always the case, even after I had started using the language. But now it is.  This is the first post in a series of 3 that goes over some of the features of Rust that have landed it squarely atop the language pile for me.
 
-First however, I'd like to take a bit of time explaning the history of my journey to Rust.
+First however, I'd like to take a bit of time to explain the history of my journey to Rust.
 
-I was really introduced to programming in college.  C was the language and it was painful for me.  Next was assembly, which somehow was worse.   Finally, my senior year I took a class on C++.  However, there was this new language on the block called Java and they had decided to teach us both at the same time.   Java was easy for me to understand and use.   When I graduated and got my first job, it was Java.   I loved Java for a long time.  As I gained more experience, I began to see some of the warts.  They weren't terrible, but they were certainly there (NPEs anyone?).  About 13 years into my career using Java, a co-worker introduced me to Clojure.   My programming world changed again.  What were these wonderous concepts in functional programming?  I started learning as much as I could about the concepts.   This included attendeing a local functional programming group.  I still attend this group and still learn about new tools to use in my programming career.  It was also the place that I was introduced to Rust.   After hearing about Rust at this meetup I decided to give it a try.  If I recall correctly, the Rust team had just released version 0.6.   I was hooked almost immediately.
+I was introduced to programming in college.  C was the language and it was painful for me.  Next was assembly, which somehow was worse.   Finally, my senior year I took a class on C++.  However, there was this new language on the block called Java and they had decided to teach us both at the same time.   Java was easy for me to understand and use.   When I graduated and got my first job, it was Java.   I loved Java for a long time.  As I gained more experience, I began to see some of the warts.  They weren't terrible, but they were certainly there (NPEs anyone?).  About 13 years into my career using Java, a co-worker introduced me to Clojure.   My programming world changed again.  What were these wondrous concepts in functional programming?  I started learning as much as I could about the concepts.   This included attending a local functional programming group.  I still attend this group and still learn about new tools to use in my programming career.  It was also the place that I was introduced to Rust.   After hearing about Rust at this meetup, I decided to give it a try.  If I recall correctly, the Rust team had just released version 0.6.   I was hooked almost immediately.
 
-The journey to my favorite language was filled with potholes.   Rust can be a bear to learn.  If you do any digging you'll eventually come across stories about people fighting the borrow checker and losing.  My only advice is this:  Give the language a try.  If you get stuck, set it down for a few weeks.  Come back fresh and give the language another go.  I had to re-frame how I thought about problems when programming with Rust, but in the end I think this makes me a better programmer and I now rank Rust as my favorite.
+The journey to my favorite language was filled with potholes.   Rust can be a bear to learn.  If you do any digging, you'll eventually come across stories about people fighting the borrow checker and losing.  My only advice is this:  Give the language a try.  If you get stuck, set it down for a few weeks.  Come back fresh and give the language another go.  I had to re-frame how I thought about problems when programming with Rust, but in the end I think this makes me a better programmer.  I now rank Rust as my favorite.
 
 So, with that behind us, what is it about Rust that I love.
 
@@ -39,19 +39,19 @@ As for IDEs, I prefer to use Visual Studio Code.  For a better experience I sugg
 
 One of the distinguishing features of Rust is memory safety at performance levels near the C language.
 ## A. Memory Safety
-For the uninitiated, memory safety refers to a class of bugs that your program is protected from at runtime.  These bugs include some well known issues such as buffer overflows, use after free, and dangling pointers.  Normally, memory safety is achieved by means of garbage collection or GC.  A full discussion about GC is out of scope here, but GC can cause other issues (raise your hand if you ever hooked up to a memory starved JVM to watch the GC thrash).  Rust on the other hand achieves memory safety through the concept of ownership where memory safety checks happen at compile time.  Completing the checks at compile time means there is no runtime impact on performance.
+For the uninitiated, memory safety refers to a class of bugs that your program is protected from at runtime.  These bugs include some well known issues such as buffer overflows, use after free, and dangling pointers.  Normally, memory safety is achieved by means of garbage collection or GC.  A full discussion about GC is out of scope here, but GC can cause other issues (raise your hand if you ever hooked up to a memory starved JVM to watch the GC thrash).  Rust, on the other hand, achieves memory safety through the concept of ownership where memory safety checks happen at compile time.  Completing the checks at compile time means there is no runtime impact on performance.
 
 ## B. Ownership
-So what is ownership?  First the ownership rules:
+So what is ownership?  First, the ownership rules:
 
 1. Each value in Rust has a variable that's called its owner.
 2. There can only be one owner at a time.
 3. When the owner goes out of scope, the value will be dropped.
 
-That's it.  Now, we will grab some code and dive into some examples to illustrate in a more concerete manner what ownership is.
+That's it.  Now, we will grab some code and dive into some examples to illustrate in a more concrete manner what ownership is.
 
 # 4. The Code
-These examples loosely follow the examples documented in the [Rust book](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html).  I hightly recommend taking some time to peruse the entire book, it's very good.  I've added some additional examples and context where I've run into ownership conundrums in the past.
+These examples loosely follow the examples documented in the [Rust book](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html).  I highly recommend taking some time to peruse the entire book, it's very good.  I've added some additional examples and context where I've run into ownership conundrums in the past.
 
 The code for the examples in this post is hosted at https://github.com/trust-rust/rust-ownership.git.
 
@@ -112,7 +112,7 @@ Before we dive into move, take a look at the code below.  What would you expect 
 }
 ````
 
-Most people from a Java background like myself would probably answer **"It prints 'trust-rust' twice"**, however, this is incorrect.  If you answered, **"A compilation failure"**, congratulations!  A compiler error similar to below would be generated.
+Most people from a Java background like myself would probably answer **"It prints 'trust-rust' twice"**. However, this is incorrect.  If you answered, **"A compilation failure"**, congratulations!  A compiler error similar to below would be generated.
 
 ````rust
 01: error[E0382]: borrow of moved value: `x`
@@ -132,7 +132,7 @@ Most people from a Java background like myself would probably answer **"It print
 15: error: could not compile `tr`
 ````
 
-That error may seem dense with unfamiliar terms, so lets look at the relevant output line by line.
+That error may seem dense with unfamiliar terms, so let us look at the relevant output line by line.
 
 #### **Line 1**
 ````rust
@@ -158,7 +158,7 @@ Here we get the line and column of where the error was generated.  If you take a
 
 Lines 3-7 are the "more information" block of the error.  This block is intended to help guide you to the solution.
 
-On line 5, we can see a message regarding line 4.  Again, a move is referenced in regards to the type 'String'.  But what is the 'Copy' trait?  We will get to that after we discuss borrow.
+On line 5, we can see a message regarding line 4.  Again, a move is referenced in regards to the type 'String'.  But what is the 'Copy' trait?  Copy is beyond the scope of this post, but can be found in Chapter 4 of the Rust book.
 
 On line 7, we can see that x was moved via the code on line 6.
 
@@ -174,17 +174,17 @@ Phew!  You made it through.   So what are all of these new terms, move, borrow, 
 ### Now back to move...
 For me it helps if you think of the equals (`=`) operator as taking ownership rather than assignment.  When a variable takes ownership of something, we say that something has "moved" into that variable.
 
-In my head I "read" the code
+In my head, I "read" the code
 ````rust
 let x = String::from("trust-rust");
 ````
-as "The string "trust-rust" has moved into x".  You can also think of the interaction as the inverse.  `x` has taken ownership of the string "trust-rust".  This is a slight over-simplification but it works for now.
+as "The string "trust-rust" has moved into x".  You can also think of the interaction as the inverse.  `x` has taken ownership of the string "trust-rust".  This is a slight oversimplification but it works for now.
 
 Now we can see that the following is transferring ownership from `x` to `y`.  What `x` once owned (the string), now belongs to `y`.
 ```rust
 let y = x;
 ```
-At this point `x` no longer owns anything, so is invalid.  Therefore, we can no longer refer to `x` after this point in the code.
+At this point, `x` no longer owns anything, so is invalid.  Therefore, we can no longer refer to `x` after this point in the code.
 
 ### Run the Code
 The full code for this example is in the `ex02.rs` file in the `src/` directory.
@@ -207,7 +207,7 @@ Again we will start with a question.  What would you expect to happen if you ran
 
 With the knowledge of the previous section at your disposal, hopefully you answered **"A compilation failure"**.  If not, don't worry.  Move semantics can take some getting used to.
 
-Lets take a look at the fully annotated code:
+Let us take a look at the fully annotated code:
 
 ```rust
 02:     let x = String::from("  trust-rust  "); // x establishes ownership of the string here
@@ -235,7 +235,7 @@ Lets take a look at the fully annotated code:
 24:     println!("y is '{}'", y);
 ```
 
-You can see above that when you call `modify_string(x)` the value `x` is moved into the function.  You can also think of it as the `modify_string` function taking ownership of the value `x`.  You may also occasionally see that the value `x` is consumed by the function `modify_string` in the wild.  No matter which way you view it, when you call a function as above, the value is moved into the function and unusable in the original scope.
+You can see above that when you call `modify_string(x)` the value `x` is moved into the function.  You can also think of it as the `modify_string` function taking ownership of the value `x`.  You may also occasionally see that the value `x` is "consumed" by the function `modify_string` in Rust documentation.  No matter which way you view it, when you call a function as above, the value is moved into the function and unusable in the original scope.
 
 ### Run the Code
 The full code for this example is in the `ex03.rs` file in the `src/` directory.
@@ -421,9 +421,9 @@ There are a couple of important rules around references and mutable references.
 
 1. You may have many immutable references at one time to a variable in a given scope.
 1. You may only have one mutable reference to a variable at a time in a given scope.
-1. You may not have a mutable referece to a variable that also has immutable references in a given scope.
+1. You may not have a mutable reference to a variable that also has immutable references in a given scope.
 
-I think of this in terms of read/write.  You may have multiple readable reference on the same variable, but you may only have one writeable reference within a given scope.  Rust enforces this rule to prevent data races.  This basically reduces all mutations to atomic operations.  Some examples should help clarify these rules.
+I think of this in terms of read/write.  You may have multiple readable references on the same variable, but you may only have one writeable reference within a given scope.  Rust enforces this rule to prevent race conditions.  This basically reduces all mutations to atomic operations.  Some examples should help clarify these rules.
 
 #### Multiple Immutable References
 ```rust
@@ -435,7 +435,7 @@ let r2 = &s;
 println!("{}, {}", r1, r2);
 ```
 
-The previous code illustrate that you can have multiple immutable references to the same variable in the same scope.
+The previous code illustrates that you can have multiple immutable references to the same variable in the same scope.
 
 #### Multiple Mutable References
 ```rust
@@ -501,5 +501,5 @@ error: could not compile `tr`
 To learn more, run the command again with --verbose.
 ```
 
-# F. The End, or hopefully The Beginning
-This marks the end of our exploration of the Rust concepts of move, borrow, and ownership.  Hopefully you have a better understanding of one of the features that helps Rust stand out in the field of languages.  As I mentioned before, you should take some time to explore the Rust book.   This post draws from the fourth chapter in the book 'What is Ownership?'.  In that chapter they take a deeper dive into these concepts.  And while this marks the end of this post, I'd like to think that for some of you, this marks the beginning of your jouney into a language that has become my favorite.
+# 6. The End, or hopefully The Beginning
+This marks the end of our exploration of the Rust concepts of move, borrow, and ownership.  Hopefully you have a better understanding of one of the features that helps Rust stand out in the field of languages.  As I mentioned before, you should take some time to explore the Rust book.   This post draws from the fourth chapter in the book 'What is Ownership?'.  In that chapter, they take a deeper dive into these concepts.  While this marks the end of this post, I'd like to think that for some of you, this marks the beginning of your jouney into a language that has become my favorite.
